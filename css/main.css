@@ -1,13 +1,14 @@
 h1 {
-	color: green;
-	font-size: 20em;
-}
-
-p {
+	color: #5CFF5C;
 	font-size: 10em;
 }
 
+p {
+	font-size: 8em;
+}
+
 body {
-	background-color: purple;
+	background-color: #cf0038;
 	font-family: sans-serif;
+	width: 100%;
 }
