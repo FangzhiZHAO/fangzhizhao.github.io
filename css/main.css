@@ -1,5 +1,5 @@
 h1 {
-	color: #5CFF5C;
+	color: yellow;
 	font-size: 10em;
 }
 
@@ -50,29 +50,23 @@ body {
 	background-color: #cf0038;
 	font-family: sans-serif;
 	width: 100%;
+
 }
 
-html {
-	
+html {	
+
 }
 
 
 
+div#container {
+  height:100%;
+  width:1000px;
 
-.box {
-  background-color: none;
-  margin: 0 0;
-  width: 100%;
-  height: 100%;
+}
+
+div.a {
+  width: 50px;
+  height:50px; 
   position: fixed;
-  top: 0;
-  left: 0;
-  border: 1px solid #111;
-  overflow: hidden;
-}
-
-.box b {
-  display: block;
-  position: absolute;
- 
 }
