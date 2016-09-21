@@ -3,6 +3,17 @@ h1 {
 	font-size: 10em;
 }
 
+a {
+	color: #5CFF5C;
+	text-decoration: none;
+
+}
+
+a:hover {
+	color: yellow;
+	text-decoration: underline;
+}
+
 p {
 	font-size: 8em;
 }
