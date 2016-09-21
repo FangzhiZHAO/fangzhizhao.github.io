@@ -4,18 +4,19 @@ h1 {
 }
 
 a {
-	color: #5CFF5C;
+	color: yellow;
 	text-decoration: none;
 
 }
 
 a:hover {
-	color: yellow;
+	color: #600;
 	text-decoration: underline;
 }
 
 p {
 	font-size: 8em;
+	color: yellow;
 }
 
 p {
@@ -53,4 +54,25 @@ body {
 
 html {
 	
+}
+
+
+
+
+.box {
+  background-color: none;
+  margin: 0 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: 1px solid #111;
+  overflow: hidden;
+}
+
+.box b {
+  display: block;
+  position: absolute;
+ 
 }

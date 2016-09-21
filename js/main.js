@@ -1,25 +1,5 @@
-$(document).ready(function(){
-    animateDiv();
-    
-});
+TweenLite.defaultEase = Linear.easeNone;
+var tl = new TimelineLite()
 
-function makeNewPosition(){
-    
-    // Get viewport dimensions (remove the dimension of the div)
-    var h = $(window).height() - 50;
-    var w = $(window).width() - 50;
-    
-    var nh = Math.floor(Math.random() * h);
-    var nw = Math.floor(Math.random() * w);
-    
-    return [nh,nw];    
-    
-}
-
-function animateDiv(){
-    var newq = makeNewPosition();
-    $('p').animate({ top: newq[0], left: newq[1] }, function(){
-      animateDiv();        
-    });
-    
-};
+tl.to(".box b", 4.05, {x:1000, repeat:-1, yoyo:true})
+  .to(".box b", 8.4, {y:720, repeat:-1, yoyo:true}, 0)
