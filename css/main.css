@@ -57,7 +57,43 @@ html {
 
 }
 
+img {
+  width: 300px;
+  height: 300px;
+  display: block;
+  
 
+}
+
+.tint {
+  position: relative;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.tint:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,0,0, 0.5);
+  transition: all .3s linear;
+}
+
+.tint:hover:before { 
+  background: rgba(135,0,0, 0.5); 
+}
+
+div#thumbnails{
+  overflow: hidden;
+  width: 840px;
+  margin: 0 auto;
+}
 
 div#container {
   height:100%;
