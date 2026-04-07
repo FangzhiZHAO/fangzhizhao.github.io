@@ -1,0 +1,122 @@
+:root {
+  --bg: #080b13;
+  --panel: rgba(8, 11, 19, 0.72);
+  --text: #ecf2ff;
+  --muted: #a4b3cc;
+  --accent: #71c7ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  overflow: hidden;
+}
+
+.site {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.nav {
+  position: fixed;
+  top: env(safe-area-inset-top, 0);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  z-index: 3;
+  padding: 1rem;
+}
+
+.nav a,
+.nav span {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+}
+
+.nav a:hover {
+  border-color: var(--accent);
+}
+
+.nav .coming {
+  color: var(--muted);
+}
+
+.centerpiece {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.centerpiece h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 8vw, 5.2rem);
+  letter-spacing: 0.03em;
+  text-shadow: 0 8px 40px rgba(113, 199, 255, 0.25);
+}
+
+.centerpiece p {
+  margin-top: 0.7rem;
+  color: var(--muted);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+.bottom-links {
+  position: fixed;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0));
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.bottom-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.bottom-links a:hover {
+  color: var(--text);
+}
+
+@media (max-width: 700px) {
+  .nav {
+    justify-content: flex-start;
+    padding: 0.85rem;
+  }
+}
