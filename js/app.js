@@ -1,9 +1,9 @@
 const { useEffect, useRef, useState } = React;
 
-function makePointsForShape(kind, width, height, isMobile) {
+function makePointsForShape(width, height, isMobile) {
   const off = document.createElement("canvas");
-  const w = Math.floor(Math.min(width * 0.66, 660));
-  const h = Math.floor(Math.min(height * 0.5, 420));
+  const w = Math.floor(Math.min(width * 0.84, 900));
+  const h = Math.floor(Math.min(height * 0.74, 640));
   off.width = w;
   off.height = h;
   const ctx = off.getContext("2d");
@@ -11,112 +11,31 @@ function makePointsForShape(kind, width, height, isMobile) {
   ctx.clearRect(0, 0, w, h);
   ctx.strokeStyle = "#fff";
   ctx.fillStyle = "#fff";
-  ctx.lineWidth = Math.max(4, Math.min(w, h) * 0.03);
+  ctx.lineWidth = Math.max(5, Math.min(w, h) * 0.035);
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
 
-  if (kind === "globe") {
-    const r = Math.min(w, h) * 0.28;
-    const cx = w * 0.5;
-    const cy = h * 0.5;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.stroke();
+  const r = Math.min(w, h) * 0.36;
+  const cx = w * 0.5;
+  const cy = h * 0.5;
 
-    for (const ratio of [0.45, 0.75]) {
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, r * ratio, r, 0, 0, Math.PI * 2);
-      ctx.stroke();
-    }
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.stroke();
 
-    for (const y of [-0.45, 0, 0.45]) {
-      const ry = r * Math.cos(Math.asin(Math.min(0.95, Math.abs(y))));
-      ctx.beginPath();
-      ctx.ellipse(cx, cy + r * y, r, ry, 0, 0, Math.PI * 2);
-      ctx.stroke();
-    }
-  } else if (kind === "face") {
-    const r = Math.min(w, h) * 0.27;
-    const cx = w * 0.5;
-    const cy = h * 0.5;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.stroke();
+  const eyeR = r * 0.1;
+  ctx.beginPath();
+  ctx.arc(cx - r * 0.36, cy - r * 0.18, eyeR, 0, Math.PI * 2);
+  ctx.arc(cx + r * 0.36, cy - r * 0.18, eyeR, 0, Math.PI * 2);
+  ctx.fill();
 
-    const eyeR = r * 0.1;
-    ctx.beginPath();
-    ctx.arc(cx - r * 0.36, cy - r * 0.18, eyeR, 0, Math.PI * 2);
-    ctx.arc(cx + r * 0.36, cy - r * 0.18, eyeR, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(cx, cy + r * 0.1, r * 0.48, 0.18 * Math.PI, 0.82 * Math.PI, false);
-    ctx.stroke();
-  } else if (kind === "mac") {
-    const x = w * 0.2;
-    const y = h * 0.2;
-    const bw = w * 0.6;
-    const bh = h * 0.45;
-    const radius = Math.min(w, h) * 0.03;
-
-    ctx.beginPath();
-    ctx.moveTo(x + radius, y);
-    ctx.lineTo(x + bw - radius, y);
-    ctx.quadraticCurveTo(x + bw, y, x + bw, y + radius);
-    ctx.lineTo(x + bw, y + bh - radius);
-    ctx.quadraticCurveTo(x + bw, y + bh, x + bw - radius, y + bh);
-    ctx.lineTo(x + radius, y + bh);
-    ctx.quadraticCurveTo(x, y + bh, x, y + bh - radius);
-    ctx.lineTo(x, y + radius);
-    ctx.quadraticCurveTo(x, y, x + radius, y);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(w * 0.38, h * 0.74);
-    ctx.lineTo(w * 0.62, h * 0.74);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(w * 0.45, h * 0.65);
-    ctx.lineTo(w * 0.55, h * 0.65);
-    ctx.lineTo(w * 0.62, h * 0.74);
-    ctx.lineTo(w * 0.38, h * 0.74);
-    ctx.closePath();
-    ctx.stroke();
-  } else if (kind === "pencil") {
-    const cx = w * 0.5;
-    const cy = h * 0.5;
-    const len = Math.min(w, h) * 0.62;
-    const thick = Math.min(w, h) * 0.11;
-    const angle = -Math.PI / 5;
-
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(angle);
-
-    ctx.strokeRect(-len * 0.4, -thick / 2, len * 0.65, thick);
-
-    ctx.beginPath();
-    ctx.moveTo(len * 0.25, -thick / 2);
-    ctx.lineTo(len * 0.4, 0);
-    ctx.lineTo(len * 0.25, thick / 2);
-    ctx.closePath();
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(-len * 0.4, -thick / 2);
-    ctx.lineTo(-len * 0.54, -thick / 2);
-    ctx.lineTo(-len * 0.54, thick / 2);
-    ctx.lineTo(-len * 0.4, thick / 2);
-    ctx.closePath();
-    ctx.stroke();
-
-    ctx.restore();
-  }
+  ctx.beginPath();
+  ctx.arc(cx, cy + r * 0.1, r * 0.48, 0.18 * Math.PI, 0.82 * Math.PI, false);
+  ctx.stroke();
 
   const imageData = ctx.getImageData(0, 0, w, h).data;
   const points = [];
-  const step = isMobile ? 7 : 5;
+  const step = isMobile ? 6 : 4;
 
   for (let y = 0; y < h; y += step) {
     for (let x = 0; x < w; x += step) {
@@ -130,24 +49,44 @@ function makePointsForShape(kind, width, height, isMobile) {
   return points;
 }
 
-function App() {
-  const canvasRef = useRef(null);
-  const [shapeLabel, setShapeLabel] = useState("Globe");
-  const [quoteIndex, setQuoteIndex] = useState(0);
-
-  const quotes = [
+function useTagline() {
+  const base = "art, technology, marketing";
+  const foreignCycle = [
+    "\u827a\u672f, technology, marketing",
+    "art, technologie, marketing",
+    "art, technology, \u062a\u0633\u0648\u064a\u0642",
     "art, technology, marketing",
-    "Stories designed at the intersection of code and culture.",
-    "Creative systems for human connection.",
-    "From concept to campaign, crafted with intention."
   ];
+  const sequence = [...foreignCycle, ...foreignCycle, ...foreignCycle];
+
+  const [text, setText] = useState("");
+  const [seqIdx, setSeqIdx] = useState(-1);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setQuoteIndex((prev) => (prev + 1) % quotes.length);
-    }, 3600);
-    return () => clearInterval(timer);
-  }, []);
+    if (seqIdx !== -1) return;
+    if (text.length < base.length) {
+      const id = setTimeout(() => setText(base.slice(0, text.length + 1)), 65);
+      return () => clearTimeout(id);
+    }
+    const id = setTimeout(() => setSeqIdx(0), 1800);
+    return () => clearTimeout(id);
+  }, [seqIdx, text]);
+
+  useEffect(() => {
+    if (seqIdx < 0 || seqIdx >= sequence.length) return;
+    setText(sequence[seqIdx]);
+    const isEnglish = sequence[seqIdx] === base;
+    const id = setTimeout(() => setSeqIdx(seqIdx + 1), isEnglish ? 2600 : 2000);
+    return () => clearTimeout(id);
+  }, [seqIdx]);
+
+  const isTyping = seqIdx === -1 && text.length < base.length;
+  return { text: text || "\u00a0", isTyping };
+}
+
+function App() {
+  const canvasRef = useRef(null);
+  const { text: tagline, isTyping } = useTagline();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -158,34 +97,23 @@ function App() {
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let isMobile = width <= 768;
 
-    const names = ["globe", "face", "mac", "pencil"];
-    const displayNames = {
-      globe: "Globe",
-      face: "Face",
-      mac: "Mac",
-      pencil: "Pencil"
-    };
-
-    const particleCount = isMobile ? 700 : 1300;
+    const particleCount = isMobile ? 800 : 1500;
     const particles = Array.from({ length: particleCount }).map(() => ({
       x: Math.random() * width,
       y: Math.random() * height,
       vx: 0,
       vy: 0,
       tx: width / 2,
-      ty: height / 2
+      ty: height / 2,
     }));
 
-    let shapeIndex = 0;
-
     const assignTargets = () => {
-      const targets = makePointsForShape(names[shapeIndex], width, height, isMobile);
-      for (let i = 0; i < particles.length; i += 1) {
-        const target = targets[i % targets.length];
-        particles[i].tx = target.x;
-        particles[i].ty = target.y;
+      const targets = makePointsForShape(width, height, isMobile);
+      for (let i = 0; i < particles.length; i++) {
+        const t = targets[i % targets.length];
+        particles[i].tx = t.x;
+        particles[i].ty = t.y;
       }
-      setShapeLabel(displayNames[names[shapeIndex]]);
     };
 
     assignTargets();
@@ -197,7 +125,6 @@ function App() {
       height = window.innerHeight;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       isMobile = width <= 768;
-
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       canvas.style.width = `${width}px`;
@@ -208,69 +135,50 @@ function App() {
 
     setSize();
 
-    const onMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouse.active = true;
-    };
-
-    const onTouchMove = () => {
-      mouse.active = false;
-    };
-
-    const onLeave = () => {
-      mouse.active = false;
-    };
+    const onMouseMove = (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; };
+    const onTouchMove = () => { mouse.active = false; };
+    const onLeave = () => { mouse.active = false; };
 
     window.addEventListener("resize", setSize);
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("mouseleave", onLeave);
 
-    const shapeTimer = setInterval(() => {
-      shapeIndex = (shapeIndex + 1) % names.length;
-      assignTargets();
-    }, isMobile ? 3400 : 2800);
-
     let raf = null;
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "rgba(113, 199, 255, 0.9)";
+      ctx.fillStyle = "rgba(80, 220, 130, 0.88)";
 
       const safeHalfW = isMobile ? 135 : 260;
       const safeHalfH = isMobile ? 70 : 120;
       const centerX = width * 0.5;
       const centerY = height * 0.5;
 
-      for (let i = 0; i < particles.length; i += 1) {
+      for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
-        const dx = p.tx - p.x;
-        const dy = p.ty - p.y;
 
-        p.vx += dx * 0.008;
-        p.vy += dy * 0.008;
+        p.vx += (p.tx - p.x) * 0.008;
+        p.vy += (p.ty - p.y) * 0.008;
 
         if (mouse.active && !isMobile) {
           const mx = p.x - mouse.x;
           const my = p.y - mouse.y;
           const dist2 = mx * mx + my * my;
-          const radius = 110;
+          const radius = 120;
           if (dist2 < radius * radius) {
             const push = (radius * radius - dist2) / (radius * radius);
             const angle = Math.atan2(my, mx);
-            p.vx += Math.cos(angle) * push * 1.2;
-            p.vy += Math.sin(angle) * push * 1.2;
+            p.vx += Math.cos(angle) * push * 1.3;
+            p.vy += Math.sin(angle) * push * 1.3;
           }
         }
 
-        const inSafeZone =
+        if (
           Math.abs(p.x - centerX) < safeHalfW &&
-          Math.abs(p.y - centerY) < safeHalfH;
-        if (inSafeZone) {
-          const awayX = p.x >= centerX ? 1 : -1;
-          const awayY = p.y >= centerY ? 1 : -1;
-          p.vx += awayX * 0.7;
-          p.vy += awayY * 0.5;
+          Math.abs(p.y - centerY) < safeHalfH
+        ) {
+          p.vx += (p.x >= centerX ? 1 : -1) * 0.7;
+          p.vy += (p.y >= centerY ? 1 : -1) * 0.5;
         }
 
         p.vx *= 0.84;
@@ -278,7 +186,7 @@ function App() {
         p.x += p.vx;
         p.y += p.vy;
 
-        ctx.fillRect(p.x, p.y, isMobile ? 1.8 : 2.2, isMobile ? 1.8 : 2.2);
+        ctx.fillRect(p.x, p.y, isMobile ? 2 : 2.4, isMobile ? 2 : 2.4);
       }
 
       raf = requestAnimationFrame(animate);
@@ -288,7 +196,6 @@ function App() {
 
     return () => {
       cancelAnimationFrame(raf);
-      clearInterval(shapeTimer);
       window.removeEventListener("resize", setSize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("touchmove", onTouchMove);
@@ -297,29 +204,24 @@ function App() {
   }, []);
 
   return React.createElement(
-    "div",
-    { className: "site" },
+    "div", { className: "site" },
     React.createElement("canvas", { ref: canvasRef, "aria-hidden": "true" }),
     React.createElement(
-      "nav",
-      { className: "nav", "aria-label": "Main" },
-      React.createElement(
-        "a",
-        { href: "https://marketingos.blog", target: "_blank", rel: "noreferrer" },
-        "Blog"
-      ),
+      "nav", { className: "nav", "aria-label": "Main" },
+      React.createElement("a", { href: "https://marketingos.blog", target: "_blank", rel: "noreferrer" }, "Blog"),
       React.createElement("a", { href: "/about/" }, "About")
     ),
     React.createElement(
-      "main",
-      { className: "centerpiece" },
+      "main", { className: "centerpiece" },
       React.createElement(
-        "div",
-        { className: "center-card" },
+        "div", { className: "center-card" },
         React.createElement("h1", null, "Fangzhi Zhao"),
-        React.createElement("p", { className: "tagline" }, quotes[quoteIndex]),
-        React.createElement("p", { className: "shape" }, "Interactive particles: ", shapeLabel)
+        React.createElement("p", { className: isTyping ? "tagline typing" : "tagline" }, tagline)
       )
+    ),
+    React.createElement(
+      "footer", { className: "footer" },
+      "\u00a9 2016\u20132026 Fangzhi Zhao"
     )
   );
 }
