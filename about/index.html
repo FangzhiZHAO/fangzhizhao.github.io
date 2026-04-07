@@ -6,35 +6,27 @@
     <title>About · Fangzhi Zhao</title>
     <style>
       :root {
-        color-scheme: dark;
         --bg: #080b13;
         --text: #ecf2ff;
-        --muted: #c8d3e7;
+        --muted: #b0bccc;
+        --accent: #b946ff;
       }
 
-      * { box-sizing: border-box; }
+      * { box-sizing: border-box; margin: 0; }
 
       body {
-        margin: 0;
         min-height: 100dvh;
         background: radial-gradient(circle at 20% 20%, #130b1e 0%, var(--bg) 52%);
         color: var(--text);
         font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       }
 
-      .wrap {
-        width: min(92vw, 860px);
-        margin: 0 auto;
-        padding: 1.2rem 0 3rem;
-      }
-
-      /* Matches main page nav */
+      /* ── Nav — identical to main page ── */
       .nav {
         display: flex;
         justify-content: center;
         gap: 0.9rem;
-        margin-bottom: 1.8rem;
-        padding: 0.4rem 0;
+        padding: 1.2rem 1rem 0;
       }
 
       .nav a {
@@ -49,57 +41,42 @@
 
       .nav a:hover { color: var(--text); }
 
-      /* Glass card (used for hero + prose) */
-      .glass {
-        background: linear-gradient(
-          155deg,
-          rgba(185, 70, 255, 0.10),
-          rgba(255, 255, 255, 0.04) 35%,
-          rgba(8, 11, 19, 0.55) 100%
-        );
-        border: 1px solid rgba(185, 70, 255, 0.18);
-        border-radius: 18px;
-        backdrop-filter: blur(12px) saturate(140%);
-        -webkit-backdrop-filter: blur(12px) saturate(140%);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 18px 55px rgba(0, 0, 0, 0.45);
-      }
-
-      .hero {
-        padding: 1.4rem 1.6rem 1.2rem;
-        margin-bottom: 1rem;
+      /* ── Content ── */
+      .wrap {
+        width: min(92vw, 720px);
+        margin: 0 auto;
+        padding: 3.5rem 0 4rem;
       }
 
       h1 {
-        margin: 0;
         font-size: clamp(2rem, 6vw, 3.3rem);
+        letter-spacing: 0.02em;
         background: linear-gradient(140deg, #ffffff 0%, #f0e4ff 25%, #c890f5 50%, #ffffff 70%, #e8d0fa 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        margin-bottom: 0.3rem;
       }
 
       .pronounce {
-        margin-top: 0.4rem;
-        color: rgba(185, 70, 255, 0.75);
-        font-size: 0.88rem;
-        letter-spacing: 0.12em;
+        font-size: 0.82rem;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
+        color: rgba(185, 70, 255, 0.6);
+        margin-bottom: 2.8rem;
       }
 
-      .prose { padding: 1.4rem 1.6rem; }
-
       .prose p {
-        margin: 0 0 1.15rem;
         color: var(--muted);
-        line-height: 1.80;
-        font-size: clamp(1rem, 2vw, 1.08rem);
+        line-height: 1.82;
+        font-size: clamp(1rem, 2vw, 1.06rem);
+        margin-bottom: 1.3rem;
       }
 
       .prose p:last-child { margin-bottom: 0; }
 
       .footer {
-        margin-top: 2.5rem;
-        text-align: center;
+        margin-top: 3rem;
         font-size: 0.72rem;
         color: rgba(164, 179, 204, 0.28);
         letter-spacing: 0.08em;
@@ -107,19 +84,17 @@
     </style>
   </head>
   <body>
+    <nav class="nav" aria-label="Main">
+      <a href="https://marketingos.blog" target="_blank" rel="noreferrer">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/">Home</a>
+    </nav>
+
     <div class="wrap">
-      <nav class="nav" aria-label="Main">
-        <a href="https://marketingos.blog" target="_blank" rel="noreferrer">Blog</a>
-        <a href="/about/">About</a>
-        <a href="/">Home</a>
-      </nav>
+      <h1>Fangzhi Zhao</h1>
+      <div class="pronounce">Fang-zee Jao</div>
 
-      <section class="hero glass">
-        <h1>Fangzhi Zhao</h1>
-        <div class="pronounce">Fang-zee Jao</div>
-      </section>
-
-      <article class="prose glass">
+      <article class="prose">
         <p>
           I work at the intersection of marketing, AI, systems, and art. Not as separate disciplines,
           but as one evolving practice.

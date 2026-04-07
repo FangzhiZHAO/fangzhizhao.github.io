@@ -97,9 +97,15 @@ canvas {
   min-height: 1.5em;
 }
 
-.tagline.typing::after {
+.tagline .sep {
+  color: rgba(185, 70, 255, 0.45);
+}
+
+/* Blinking cursor on whichever word is currently typing/deleting */
+.tagline .word.cycling::after {
   content: "|";
-  animation: blink 0.7s step-end infinite;
+  color: rgba(185, 70, 255, 0.8);
+  animation: blink 0.5s step-end infinite;
 }
 
 @keyframes blink { 50% { opacity: 0; } }
