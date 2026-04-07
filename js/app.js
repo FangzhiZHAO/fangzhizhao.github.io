@@ -132,7 +132,22 @@ function makePointsForShape(kind, width, height, isMobile) {
 
 function App() {
   const canvasRef = useRef(null);
-  const [shapeLabel, setShapeLabel] = useState("globe");
+  const [shapeLabel, setShapeLabel] = useState("Globe");
+  const [quoteIndex, setQuoteIndex] = useState(0);
+
+  const quotes = [
+    "art, technology, marketing",
+    "Stories designed at the intersection of code and culture.",
+    "Creative systems for human connection.",
+    "From concept to campaign, crafted with intention."
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setQuoteIndex((prev) => (prev + 1) % quotes.length);
+    }, 3600);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -199,11 +214,7 @@ function App() {
       mouse.active = true;
     };
 
-    const onTouchMove = (e) => {
-      const t = e.touches[0];
-      if (!t) return;
-      mouse.x = t.clientX;
-      mouse.y = t.clientY;
+    const onTouchMove = () => {
       mouse.active = false;
     };
 
@@ -226,6 +237,11 @@ function App() {
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = "rgba(113, 199, 255, 0.9)";
 
+      const safeHalfW = isMobile ? 135 : 260;
+      const safeHalfH = isMobile ? 70 : 120;
+      const centerX = width * 0.5;
+      const centerY = height * 0.5;
+
       for (let i = 0; i < particles.length; i += 1) {
         const p = particles[i];
         const dx = p.tx - p.x;
@@ -245,6 +261,16 @@ function App() {
             p.vx += Math.cos(angle) * push * 1.2;
             p.vy += Math.sin(angle) * push * 1.2;
           }
+        }
+
+        const inSafeZone =
+          Math.abs(p.x - centerX) < safeHalfW &&
+          Math.abs(p.y - centerY) < safeHalfH;
+        if (inSafeZone) {
+          const awayX = p.x >= centerX ? 1 : -1;
+          const awayY = p.y >= centerY ? 1 : -1;
+          p.vx += awayX * 0.7;
+          p.vy += awayY * 0.5;
         }
 
         p.vx *= 0.84;
@@ -282,27 +308,18 @@ function App() {
         { href: "https://marketingos.blog", target: "_blank", rel: "noreferrer" },
         "Blog"
       ),
-      React.createElement(
-        "span",
-        { className: "coming", "aria-disabled": "true" },
-        "LinkedIn · Coming Soon"
-      )
+      React.createElement("a", { href: "/about/" }, "About")
     ),
     React.createElement(
       "main",
       { className: "centerpiece" },
       React.createElement(
         "div",
-        null,
+        { className: "center-card" },
         React.createElement("h1", null, "Fangzhi Zhao"),
-        React.createElement("p", null, "New landing page · Interactive particles: ", shapeLabel)
+        React.createElement("p", { className: "tagline" }, quotes[quoteIndex]),
+        React.createElement("p", { className: "shape" }, "Interactive particles: ", shapeLabel)
       )
-    ),
-    React.createElement(
-      "div",
-      { className: "bottom-links" },
-      React.createElement("a", { href: "/about/" }, "About"),
-      React.createElement("a", { href: "/first-github-page/" }, "My very first GitHub page")
     )
   );
 }
