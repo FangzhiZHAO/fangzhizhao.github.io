@@ -6,149 +6,129 @@
     <title>About · Fangzhi Zhao</title>
     <style>
       :root {
-        color-scheme: dark;
         --bg: #080b13;
         --text: #ecf2ff;
-        --muted: #c8d3e7;
+        --muted: #b0bccc;
+        --accent: #b946ff;
       }
 
-      * { box-sizing: border-box; }
+      * { box-sizing: border-box; margin: 0; }
 
       body {
-        margin: 0;
         min-height: 100dvh;
-        background: radial-gradient(circle at 20% 20%, #11192b 0%, var(--bg) 52%);
+        background: radial-gradient(circle at 20% 20%, #130b1e 0%, var(--bg) 52%);
         color: var(--text);
         font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       }
 
-      .wrap {
-        width: min(92vw, 860px);
-        margin: 0 auto;
-        padding: 1rem 0 3rem;
-      }
-
+      /* ── Nav — identical to main page ── */
       .nav {
         display: flex;
         justify-content: center;
         gap: 0.9rem;
-        margin-bottom: 1rem;
+        padding: 1.2rem 1rem 0;
       }
 
       .nav a {
-        border: 1px solid rgba(255, 255, 255, 0.24);
-        background: linear-gradient(
-          140deg,
-          rgba(255, 255, 255, 0.16) 0%,
-          rgba(255, 255, 255, 0.04) 45%,
-          rgba(255, 255, 255, 0.08) 100%
-        );
-        color: var(--text);
-        border-radius: 999px;
-        padding: 0.56rem 1rem;
+        color: rgba(236, 242, 255, 0.45);
+        font-size: 0.9rem;
+        letter-spacing: 0.06em;
         text-decoration: none;
-        backdrop-filter: blur(14px) saturate(140%);
-        -webkit-backdrop-filter: blur(14px) saturate(140%);
+        text-transform: uppercase;
+        padding: 0.5rem 0.6rem;
+        transition: color 0.2s ease;
       }
 
-      .glass {
-        background: linear-gradient(
-          155deg,
-          rgba(255, 255, 255, 0.14),
-          rgba(255, 255, 255, 0.04) 35%,
-          rgba(8, 11, 19, 0.55) 100%
-        );
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        border-radius: 18px;
-        backdrop-filter: blur(12px) saturate(140%);
-        -webkit-backdrop-filter: blur(12px) saturate(140%);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 18px 55px rgba(0, 0, 0, 0.45);
-      }
+      .nav a:hover { color: var(--text); }
 
-      .hero {
-        padding: 1.2rem 1.3rem;
-        margin-bottom: 0.9rem;
+      /* ── Content ── */
+      .wrap {
+        width: min(92vw, 720px);
+        margin: 0 auto;
+        padding: 3.5rem 0 4rem;
       }
 
       h1 {
-        margin: 0;
         font-size: clamp(2rem, 6vw, 3.3rem);
+        letter-spacing: 0.02em;
+        background: linear-gradient(140deg, #ffffff 0%, #f0e4ff 25%, #c890f5 50%, #ffffff 70%, #e8d0fa 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.3rem;
       }
 
       .pronounce {
-        margin-top: 0.35rem;
-        color: #d7e4fd;
-        font-size: 0.95rem;
-        letter-spacing: 0.04em;
-      }
-
-      .prose {
-        padding: 1.4rem;
+        font-size: 0.82rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(185, 70, 255, 0.6);
+        margin-bottom: 2.8rem;
       }
 
       .prose p {
-        margin: 0 0 1.15rem;
         color: var(--muted);
-        line-height: 1.78;
-        font-size: clamp(1rem, 2vw, 1.08rem);
+        line-height: 1.82;
+        font-size: clamp(1rem, 2vw, 1.06rem);
+        margin-bottom: 1.3rem;
       }
 
-      .prose p:last-child {
-        margin-bottom: 0;
+      .prose p:last-child { margin-bottom: 0; }
+
+      .footer {
+        margin-top: 3rem;
+        font-size: 0.72rem;
+        color: rgba(164, 179, 204, 0.28);
+        letter-spacing: 0.08em;
       }
     </style>
   </head>
   <body>
+    <nav class="nav" aria-label="Main">
+      <a href="https://marketingos.blog" target="_blank" rel="noreferrer">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/">Home</a>
+    </nav>
+
     <div class="wrap">
-      <nav class="nav" aria-label="Main">
-        <a href="https://marketingos.blog" target="_blank" rel="noreferrer">Blog</a>
-        <a href="/about/">About</a>
-        <a href="/">Home</a>
-      </nav>
+      <h1>Fangzhi Zhao</h1>
+      <div class="pronounce">Fang-zee Jao</div>
 
-      <section class="hero glass">
-        <h1>Fangzhi Zhao</h1>
-        <div class="pronounce">FANG-ZEE JAO</div>
-      </section>
-
-      <article class="prose glass">
+      <article class="prose">
         <p>
           I work at the intersection of marketing, AI, systems, and art. Not as separate disciplines,
           but as one evolving practice.
         </p>
-
         <p>
-          I’m interested in how brands are built when content becomes a living engine, when systems
+          I'm interested in how brands are built when content becomes a living engine, when systems
           scale intuition, and when technology amplifies, rather than replaces, human emotion. I think
           a lot about emotional resonance: why some ideas stick, why some brands feel alive, and why
           others disappear into noise.
         </p>
-
         <p>
           My work lives where product, content, and community overlap. I design narratives, content
-          ecosystems, and creator-driven systems that don’t just perform, but compound. Growth, to me,
-          isn’t a spike. It’s an outcome of clarity, consistency, and trust built over time.
+          ecosystems, and creator-driven systems that don't just perform, but compound. Growth, to me,
+          isn't a spike. It's an outcome of clarity, consistency, and trust built over time.
         </p>
-
         <p>
-          I started in design and once thought I’d become a fine artist. That background still defines
+          I started in design and once thought I'd become a fine artist. That background still defines
           how I see the world. Art taught me that the most compelling work exists at the edge between
           control and loss of control, structure and chaos. Marketing is no different. Data can guide
-          you, but it can’t replace taste, intuition, or courage. Metrics explain what happened. They
-          don’t tell you what’s worth making next.
+          you, but it can't replace taste, intuition, or courage. Metrics explain what happened. They
+          don't tell you what's worth making next.
         </p>
-
         <p>
           This blog is where I think out loud. About brand building in the age of AI. About content
           systems that scale without losing soul. About creativity, strategy, and the uncomfortable
           middle ground where real insight tends to live.
         </p>
-
         <p>
-          If you’re curious about how ideas turn into systems, and how systems can still feel human,
-          you’re in the right place.
+          If you're curious about how ideas turn into systems, and how systems can still feel human,
+          you're in the right place.
         </p>
       </article>
+
+      <p class="footer">&copy; 2016&ndash;2026 Fangzhi Zhao</p>
     </div>
   </body>
 </html>
