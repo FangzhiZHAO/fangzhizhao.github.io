@@ -98,9 +98,10 @@ function makePointsForShape(kind, width, height, isMobile) {
   const points = [];
   const step = isMobile ? 6 : 4;
 
-  // Center the shape in the upper ~45% of the viewport
+  // Center the shape vertically between the nav (~60px) and the text (~87% down)
+  const midpoint = (60 + height * 0.82) / 2;   // midpoint of the usable zone
   const offX = (width - sz) / 2;
-  const offY = Math.max(40, Math.floor(height * 0.46 / 2 - sz / 2));
+  const offY = Math.max(60, Math.floor(midpoint - sz / 2));
 
   for (let y = 0; y < sz; y += step) {
     for (let x = 0; x < sz; x += step) {
@@ -192,6 +193,12 @@ function App() {
 
     const assignTargets = () => {
       const targets = makePointsForShape(SHAPES[shapeIndex], width, height, isMobile);
+      // Fisher-Yates shuffle so every region of the shape gets particle coverage,
+      // not just the top rows (which come first in the row-major canvas scan).
+      for (let i = targets.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = targets[i]; targets[i] = targets[j]; targets[j] = tmp;
+      }
       for (let i = 0; i < particles.length; i++) {
         const t = targets[i % targets.length];
         particles[i].tx = t.x; particles[i].ty = t.y;
